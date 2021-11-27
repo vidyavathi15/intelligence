@@ -1,0 +1,33 @@
+.app-container {
+  background-image: url('');
+  background-size: cover;
+  min-height: 100vh;
+}
+.mathGame-body {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+.images-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+.matched-image {
+  height: 50px;
+  width: 150px;
+}
+.tabs-list {
+  display: flex;
+  padding-left: 0px;
+  margin: 0px;
+  flex-wrap: wrap;
+}
+.thumbnail-list {
+  display: flex;
+  padding-left: 0px;
+  margin: 0px;
+  flex-wrap: wrap;
+}

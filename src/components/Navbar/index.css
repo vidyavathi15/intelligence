@@ -1,0 +1,35 @@
+.nav-bar-container {
+  display: flex;
+  justify-content: center;
+  background-color: ' #2c0e3a';
+  padding: 8px;
+}
+.logo-content-container {
+  display: flex;
+  justify-content: space-between;
+  flex-basis: 80%;
+  max-width: 1000px;
+}
+.logo-image {
+  width: 24px;
+}
+
+@media screen and (min-width: 768px) {
+  .logo-image {
+    width: 48px;
+  }
+}
+
+.content-container {
+  display: flex;
+}
+.score-value {
+  color: #ffffff;
+  font-size: 18px;
+  font-family: 'Roboto';
+  font-weight: 800;
+}
+.timer-seconds-container {
+  display: flex;
+  justify-content: center;
+}

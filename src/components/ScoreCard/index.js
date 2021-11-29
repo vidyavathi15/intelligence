@@ -16,7 +16,7 @@ const ScoreCard = props => {
         <img
           src="https://assets.ccbp.in/frontend/react-js/match-game-play-again-img.png"
           alt="reset"
-          className="rest-icon"
+          className="reset-icon"
         />
         Play Again
       </button>

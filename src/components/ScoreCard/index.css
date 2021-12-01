@@ -2,17 +2,22 @@
   background-image: url('https://assets.ccbp.in/frontend/react-js/match-game-score-card-sm-bg.png');
   background-size: cover;
   border-radius: 8px;
-  padding: 20px;
+  padding: 40px;
   margin-top: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 30px;
+  width: 100%;
+  max-width: 550px;
 }
 
 @media screen and (min-width: 768px) {
   .score-card-container {
     background-image: url('https://assets.ccbp.in/frontend/react-js/match-game-score-card-lg-bg.png');
+    width: 90%;
+    max-width: 600px;
   }
 }
 .score-label {
@@ -39,4 +44,16 @@
   color: #ffffff;
   font-size: 16px;
   font-family: 'Roboto';
+}
+.trophy-image {
+  margin-top: 170px;
+  height: 150px;
+  width: 150px;
+}
+@media screen and (min-width: 768px) {
+  .trophy-image {
+    margin-top: 170px;
+    height: 250px;
+    width: 300px;
+  }
 }

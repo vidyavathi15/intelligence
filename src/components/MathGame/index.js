@@ -261,26 +261,51 @@ class MathGame extends Component {
     isGameInProgress: true,
   }
 
+  componentDidMount() {
+    this.runningTimer()
+  }
+
   componentWillUnmount() {
     this.clearingTimer()
   }
 
   clearingTimer = () => clearInterval(this.IntervalId)
 
+  finishGameAndStopTimer = () => {
+    clearInterval(this.IntervalId)
+    this.setState({isGameInProgress: false})
+  }
+
+  decrementSeconds = () => {
+    this.setState(prevState => ({initialSeconds: prevState.initialSeconds - 1}))
+  }
+
+  runningTimer = () => {
+    const {isGameInProgress} = this.state
+
+    if (isGameInProgress) {
+      this.IntervalId = setInterval(this.decrementSeconds, 1000)
+    }
+  }
+
   setThumbnailScore = id => {
-    const {initialSeconds, randomImagesList} = this.state
+    const {initialSeconds} = this.state
+
+    const randomImageId =
+      imagesList[Math.floor(Math.random() * (imagesList.length - 1))]
+    const randomImageUrl = randomImageId.imageUrl
 
     if (initialSeconds === 0) {
       this.finishGameAndStopTimer()
     }
-    if (randomImagesList.id !== id) {
+    if (randomImageId.id !== id) {
       this.finishGameAndStopTimer()
-    } else {
-      this.IntervalId = this.setInterval(this.decrementSeconds, 1000)
     }
 
     this.setState(prevState => ({
       mathGameList: [...prevState.mathGameList, id],
+
+      imageUrl: randomImageUrl,
     }))
   }
 
@@ -297,30 +322,20 @@ class MathGame extends Component {
     return filteredThumbnails
   }
 
-  finishGameAndStopTimer = () => {
-    this.clearInterval(this.IntervalId)
-    this.setState({isGameInProgress: false})
-  }
-
-  decrementSeconds = () => {
-    this.setState(prevState => ({initialSeconds: prevState.initialSeconds - 1}))
-  }
-
-  getRandomImagesList = () => imagesList.sort(() => Math.random() - 0.5)
-
   renderImagesListView = () => {
-    const randomImagesList = this.getRandomImagesList(imagesList)
-    const {imageUrl} = randomImagesList
+    const {activeTabId, imageUrl} = this.state
+    console.log(imageUrl)
+
     const filteredThumbnails = this.getFilteredThumbnails()
-    const {activeTabId} = this.state
 
     return (
       <div className="images-container">
         <img src={imageUrl} alt="match" className="matched-image" />
+
         <ul className="tabs-list">
           {tabsList.map(eachTab => (
             <TabItem
-              key={eachTab.TabId}
+              key={eachTab.tabId}
               tabDetails={eachTab}
               isActive={activeTabId === eachTab.tabId}
               setActiveTabId={this.setActiveTabId}
@@ -346,7 +361,7 @@ class MathGame extends Component {
       mathGameList: [],
       activeTabId: tabsList[0].tabId,
       initialSeconds: 60,
-      isGameInProgress: false,
+      isGameInProgress: true,
     })
   }
 

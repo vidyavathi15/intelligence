@@ -8,7 +8,7 @@ const ScoreCard = props => {
       <img
         src="https://assets.ccbp.in/frontend/react-js/match-game-trophy.png"
         alt="trophy"
-        className=""
+        className="trophy-image"
       />
       <p className="score-label">Your Score</p>
       <p className="score-count">{currentScore}</p>

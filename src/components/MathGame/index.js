@@ -254,8 +254,8 @@ const imagesList = [
 
 class MathGame extends Component {
   state = {
+    score: 0,
     imageUrl: imagesList[0].imageUrl,
-    mathGameList: [],
     activeTabId: tabsList[0].tabId,
     initialSeconds: 60,
     isGameInProgress: true,
@@ -266,46 +266,39 @@ class MathGame extends Component {
   }
 
   componentWillUnmount() {
-    this.clearingTimer()
+    clearInterval(this.intervalId)
   }
 
-  clearingTimer = () => clearInterval(this.IntervalId)
-
   finishGameAndStopTimer = () => {
-    clearInterval(this.IntervalId)
+    clearInterval(this.intervalId)
     this.setState({isGameInProgress: false})
   }
 
   decrementSeconds = () => {
+    const {initialSeconds} = this.state
+    if (initialSeconds === 1) {
+      this.finishGameAndStopTimer()
+    }
     this.setState(prevState => ({initialSeconds: prevState.initialSeconds - 1}))
   }
 
   runningTimer = () => {
-    const {isGameInProgress} = this.state
-
-    if (isGameInProgress) {
-      this.IntervalId = setInterval(this.decrementSeconds, 1000)
-    }
+    this.intervalId = setInterval(this.decrementSeconds, 1000)
   }
 
   setThumbnailScore = id => {
     const {initialSeconds} = this.state
-
     const randomImageId =
-      imagesList[Math.floor(Math.random() * (imagesList.length - 1))]
-    const randomImageUrl = randomImageId.imageUrl
+      imagesList[Math.ceil(Math.random() * imagesList.length - 1)].id
 
     if (initialSeconds === 0) {
       this.finishGameAndStopTimer()
     }
-    if (randomImageId.id !== id) {
+    if (randomImageId !== id) {
       this.finishGameAndStopTimer()
     }
-
     this.setState(prevState => ({
-      mathGameList: [...prevState.mathGameList, id],
-
-      imageUrl: randomImageUrl,
+      score: prevState.score + 1,
     }))
   }
 
@@ -324,8 +317,6 @@ class MathGame extends Component {
 
   renderImagesListView = () => {
     const {activeTabId, imageUrl} = this.state
-    console.log(imageUrl)
-
     const filteredThumbnails = this.getFilteredThumbnails()
 
     return (
@@ -358,28 +349,24 @@ class MathGame extends Component {
   restGame = () => {
     this.setState({
       imageUrl: imagesList[0].imageUrl,
-      mathGameList: [],
+      score: 0,
       activeTabId: tabsList[0].tabId,
       initialSeconds: 60,
       isGameInProgress: true,
     })
+    this.runningTimer()
   }
 
   renderScoreCardView = () => {
-    const {mathGameList} = this.state
-    return (
-      <ScoreCard currentScore={mathGameList.length} playAgain={this.restGame} />
-    )
+    const {score} = this.state
+    return <ScoreCard currentScore={score} playAgain={this.restGame} />
   }
 
   render() {
-    const {mathGameList, initialSeconds, isGameInProgress} = this.state
+    const {score, initialSeconds, isGameInProgress} = this.state
     return (
       <div className="app-container">
-        <Navbar
-          currentScore={mathGameList.length}
-          initialSeconds={initialSeconds}
-        />
+        <Navbar currentScore={score} initialSeconds={initialSeconds} />
         <div className="mathGame-body">
           {isGameInProgress
             ? this.renderImagesListView()

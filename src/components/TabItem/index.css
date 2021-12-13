@@ -1,5 +1,6 @@
 .tab-item {
   list-style-type: none;
+  width: 150px;
 }
 .tab-btn {
   color: #ffffff;

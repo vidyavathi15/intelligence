@@ -1,11 +1,10 @@
 .thumbnail-item {
-  margin-left: 16px;
-  margin-bottom: 16px;
-  width: 80%;
+  width: 80px;
+  margin: 10px;
 }
 @media screen and (min-width: 768px) {
   .thumbnail-item {
-    width: 40%;
+    width: 160px;
   }
 }
 
@@ -16,10 +15,10 @@
   background-color: transparent;
 }
 .thumbnail-image {
-  width: 40%;
+  width: 100px;
 }
 @media screen and (min-width: 768px) {
   .thumbnail-image {
-    width: 30%;
+    width: 160px;
   }
 }

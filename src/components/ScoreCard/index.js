@@ -10,7 +10,7 @@ const ScoreCard = props => {
         alt="trophy"
         className="trophy-image"
       />
-      <p className="score-label">Your Score</p>
+      <p className="score-label">YOUR SCORE</p>
       <p className="score-count">{currentScore}</p>
       <button type="button" className="play-agin-btn" onClick={playAgain}>
         <img
@@ -18,7 +18,7 @@ const ScoreCard = props => {
           alt="reset"
           className="reset-icon"
         />
-        Play Again
+        PLAY AGAIN
       </button>
     </div>
   )

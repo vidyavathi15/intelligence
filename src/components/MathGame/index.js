@@ -286,11 +286,11 @@ class MathGame extends Component {
     this.intervalId = setInterval(this.decrementSeconds, 1000)
   }
 
-  generateRandomImageId = () => {
-    this.setState({
-      matchedImageId:
-        imagesList[Math.ceil(Math.random() * imagesList.length - 1)].id,
-    })
+  getRandomImageId = () => {
+    const randomlyImageId =
+      imagesList[Math.ceil(Math.random() * imagesList.length - 1)].id
+
+    this.setState({matchedImageId: randomlyImageId})
   }
 
   setThumbnailScore = id => {
@@ -301,10 +301,13 @@ class MathGame extends Component {
     }
     if (matchedImageId !== id) {
       this.finishGameAndStopTimer()
+    } else {
+      this.setState(prevState => ({
+        score: prevState.score + 1,
+      }))
+
+      this.getRandomImageId()
     }
-    this.setState(prevState => ({
-      score: prevState.score + 1,
-    }))
   }
 
   setActiveTabId = tabId => {
@@ -325,7 +328,10 @@ class MathGame extends Component {
 
     const filteredThumbnails = this.getFilteredThumbnails()
 
-    const {imageUrl} = imagesList[matchedImageId]
+    const generatedImageDetails = imagesList.find(
+      eachImage => eachImage.id === matchedImageId,
+    )
+    const {imageUrl} = generatedImageDetails
 
     return (
       <div className="images-container">
